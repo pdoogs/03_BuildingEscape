@@ -63,12 +63,9 @@ float UOpenDoor::GetTotalMassOfActorsOnPlate()
 		UPrimitiveComponent * PrimitiveComponent = Actor->FindComponentByClass<UPrimitiveComponent>();
 		if (PrimitiveComponent)
 		{
-			UE_LOG(LogTemp, Warning, TEXT("OpenDoor Found Primitive Component %s"), *(Actor->GetName()));
 			TotalMass += PrimitiveComponent->GetMass();
 		}
 	}
-
-	UE_LOG(LogTemp, Warning, TEXT("Total Mass = %f"), TotalMass);
 
 	return TotalMass;
 }
