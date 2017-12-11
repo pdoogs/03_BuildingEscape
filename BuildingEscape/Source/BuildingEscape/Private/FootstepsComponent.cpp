@@ -41,16 +41,14 @@ void UFootstepsComponent::TickComponent(float DeltaTime, ELevelTick TickType, FA
 	const FVector Down = FVector(0, -1, 0);
 	const FVector End = Start + Down * RaycastLength;
 
-	/*
 	FHitResult HitResult;
 	FCollisionQueryParams TraceParameters;
 	if (GetWorld()->LineTraceSingleByObjectType(
 		HitResult,
 		Start,
 		End,
-		FCollisionObjectQueryParams(ECollisionChannel::ECC_PhysicsBody),
+		FCollisionObjectQueryParams(ECollisionChannel::ECC_WorldStatic),
 		TraceParameters))
-		*/
 	{
 		LastFootstepTime = GetWorld()->GetTimeSeconds();
 
