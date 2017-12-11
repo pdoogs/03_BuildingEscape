@@ -36,7 +36,7 @@ private:
 	TSubclassOf<class AProjectile> ProjectileClass;
 
 	UPROPERTY(EditDefaultsOnly, Category = Projectile)
-	float FireSpeed = 100000; // TODO Reasonable default
+	float FireSpeed = 100; // TODO Reasonable default
 
 	UPROPERTY(EditdefaultsOnly, Category = Projectile)
 	float SpawnDistance = 100;
