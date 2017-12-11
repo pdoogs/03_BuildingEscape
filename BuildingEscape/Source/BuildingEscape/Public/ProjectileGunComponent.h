@@ -29,11 +29,15 @@ private:
 	UInputComponent* InputComponent = nullptr;
 	UStaticMeshComponent* StaticMeshComponent = nullptr;
 
+	// Fires Projectile
+	void Fire();
+
 	UPROPERTY(EditAnywhere, Category = Projectile)
 	TSubclassOf<class AProjectile> ProjectileClass;
 
 	UPROPERTY(EditDefaultsOnly, Category = Projectile)
 	float FireSpeed = 100; // TODO Reasonable default
 
-	void Fire();
+	UPROPERTY(EditdefaultsOnly, Category = Projectile)
+	float SpawnDistance = 100;
 };

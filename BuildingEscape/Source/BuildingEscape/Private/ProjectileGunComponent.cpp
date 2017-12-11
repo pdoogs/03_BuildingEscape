@@ -6,6 +6,7 @@
 #include "Engine/StaticMesh.h"
 #include "Engine/StaticMeshSocket.h"
 #include "Public/DrawDebugHelpers.h"
+#include "GameFramework/PlayerController.h"
 
 // Sets default values for this component's properties
 UProjectileGunComponent::UProjectileGunComponent()
@@ -44,8 +45,12 @@ void UProjectileGunComponent::Fire()
 	if (!ensure(StaticMeshComponent)) return;
 	if (!ensure(ProjectileClass)) return;
 
-	auto SpawnLocation = GetOwner()->GetActorLocation() + GetOwner()->GetActorForwardVector() * 100;
-	auto SpawnRotation = GetOwner()->GetActorRotation();
+	FVector PlayerLocation;
+	FRotator PlayerRotation;
+	GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(PlayerLocation, PlayerRotation);
+
+	auto SpawnLocation = PlayerLocation + PlayerRotation.Vector().GetSafeNormal() * SpawnDistance;
+	auto SpawnRotation = PlayerRotation;
 
 	auto Projectile = GetWorld()->SpawnActor<AProjectile>(
 		ProjectileClass,
@@ -61,3 +66,4 @@ void UProjectileGunComponent::Fire()
 	// Launch Projectile
 	Projectile->LaunchProjectile(FireSpeed);
 }
+
