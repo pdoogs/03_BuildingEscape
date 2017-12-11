@@ -27,7 +27,10 @@ void UFootstepsComponent::TickComponent(float DeltaTime, ELevelTick TickType, FA
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	if (!bPlayHasBegun) return;
+	// Prevents footsteps in Menu screens
+	// TODO Find reliable way to not tick unless we're in the main map
+	UE_LOG(LogTemp, Warning, TEXT("MapName: %s"), *GetWorld()->GetMapName());
+	if (GetWorld()->GetMapName() != "UEDPIE_0_NewMap") return;
 
 	// Have we moved?
 	if (LastPosition.Equals(GetOwner()->GetActorLocation(), 0.01f)) { return; }
@@ -41,6 +44,7 @@ void UFootstepsComponent::TickComponent(float DeltaTime, ELevelTick TickType, FA
 	const FVector Down = FVector(0, -1, 0);
 	const FVector End = Start + Down * RaycastLength;
 
+	/*
 	FHitResult HitResult;
 	FCollisionQueryParams TraceParameters;
 	if (GetWorld()->LineTraceSingleByObjectType(
@@ -49,10 +53,9 @@ void UFootstepsComponent::TickComponent(float DeltaTime, ELevelTick TickType, FA
 		End,
 		FCollisionObjectQueryParams(ECollisionChannel::ECC_WorldStatic),
 		TraceParameters))
+	*/
 	{
 		LastFootstepTime = GetWorld()->GetTimeSeconds();
-
-		UE_LOG(LogTemp, Warning, TEXT("Footstep"));
 
 		OnFootstep.Broadcast();
 	}

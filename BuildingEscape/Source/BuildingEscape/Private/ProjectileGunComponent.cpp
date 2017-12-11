@@ -45,6 +45,7 @@ void UProjectileGunComponent::Fire()
 	if (!ensure(StaticMeshComponent)) return;
 	if (!ensure(ProjectileClass)) return;
 
+	// Get Spawning Location and Rotation
 	FVector PlayerLocation;
 	FRotator PlayerRotation;
 	GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(PlayerLocation, PlayerRotation);
@@ -60,10 +61,6 @@ void UProjectileGunComponent::Fire()
 
 	if (!ensure(Projectile)) return;
 
-	UE_LOG(LogTemp, Warning, TEXT("FIRE"));
-	DrawDebugLine(GetWorld(), GetOwner()->GetActorLocation(), SpawnLocation, FColor(0xff, 0, 0), true);
-
-	// Launch Projectile
 	Projectile->LaunchProjectile(FireSpeed);
 }
 
